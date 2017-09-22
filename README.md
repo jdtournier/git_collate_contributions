@@ -56,6 +56,7 @@ You can pass additional arguments to the command, which will be passed as-is to
 the corresponding `git log` call. This useful to select all branches:
 ```ShellSession
 $ ~/git_collate_contributions/git_collate_contributions --all
+```
 or all branches on a remote:
 ```ShellSession
 $ ~/git_collate_contributions/git_collate_contributions --remotes=origin
