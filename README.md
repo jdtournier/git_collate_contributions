@@ -1,6 +1,6 @@
 # git_collate_contributions
 
-analyse contributions to a git repo, and produce a breakdown of commits, insertions and deletions per user
+Analyse contributions to a git repo, and produce a breakdown of commits, insertions and deletions per user
 
 
 ### Usage
@@ -8,7 +8,7 @@ analyse contributions to a git repo, and produce a breakdown of commits, inserti
 To use it, clone this repo, e.g.:
 
 ```ShellSession
-~ $ git clone https://github.com/jdtournier/git_collate_contributions
+$ git clone https://github.com/jdtournier/git_collate_contributions
 Cloning into 'git_collate_contributions'...
 remote: Counting objects: 11, done.
 remote: Compressing objects: 100% (10/10), done.
@@ -19,7 +19,8 @@ Unpacking objects: 100% (11/11), done.
 Then simply invoke from within your git repo folder:
 
 ```ShellSession
-~/my_project $ ~/git_collate_contributions/git_collate_contributions 
+$ cd my_project
+$ ~/git_collate_contributions/git_collate_contributions 
 AUTHOR                                           COMMITS      INSERTIONS       DELETIONS
 ========================================================================================
 J-Donald Tournier                                   1909          377761          295731
