@@ -7,7 +7,7 @@ analyse contributions to a git repo, and produce a breakdown of commits, inserti
 
 To use it, clone this repo, e.g.:
 
-```
+```ShellSession
 ~ $ git clone https://github.com/jdtournier/git_collate_contributions
 Cloning into 'git_collate_contributions'...
 remote: Counting objects: 11, done.
@@ -18,7 +18,7 @@ Unpacking objects: 100% (11/11), done.
 
 Then simply invoke from within your git repo folder:
 
-```
+```ShellSession
 ~/my_project $ ~/git_collate_contributions/git_collate_contributions 
 AUTHOR                                           COMMITS      INSERTIONS       DELETIONS
 ========================================================================================
@@ -54,7 +54,7 @@ gfagiolo                                               1              61        
 You can pass additional arguments to the command, which will be passed as-is to
 the corresponding `git log` call. This useful to select branches or remotes,
 e.g.:
-```
+```ShellSession
 $ ~/git_collate_contributions/git_collate_contributions --all
 $ ~/git_collate_contributions/git_collate_contributions --remotes=origin
 ```
