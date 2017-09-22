@@ -1,0 +1,72 @@
+#!/usr/bin/env python
+
+
+# Gathers number of commits, insertions and deletions for each author.
+#
+# Use the substitutions file to deal with different names for the same
+# user. This needs to be placed in the same location as this script. Amend as
+# required - format is "actual name: 'other name' some_other_name" per line, one line
+# per user.
+# 
+# By default, this runs a regular 'git log' from the current branch. 
+# Additional arguments will be passed to the command as-is. Use this to specify
+# which branches or remotes to query, e.g.:
+#
+# - all branches:
+# $ ./collate_contributions --all
+#
+# - all branches on remote 'origin':
+# $ ./collate_contributions --remotes=origin
+
+
+import os, subprocess, sys, shlex
+
+substitutions = dict()
+substitutions_file = os.path.join (os.path.dirname(sys.argv[0]), 'substitutions')
+
+if os.path.isfile (substitutions_file):
+  with open (substitutions_file, 'r') as f:
+    for line in f:
+      if len (line.strip()):
+        [ dest, src ] = line.split(':')
+        src = shlex.split (src)
+        for entry in src:
+          substitutions[entry] = dest
+
+
+
+commits = dict()
+insertions = dict()
+deletions = dict()
+
+def substitute (author):
+  if (author in substitutions.keys()):
+    return substitutions[author]
+  return author
+
+
+process = subprocess.Popen ('git log --no-merges --numstat --pretty=format:#%an'.split() + sys.argv[1:], stdout=subprocess.PIPE)
+author = None
+
+for line in process.stdout:
+  line = line.decode('utf-8', 'ignore')
+  if len (line.strip()) == 0: 
+    continue
+  if line[0] == '#':
+    author = substitute(line[1:].strip())
+    if author not in commits.keys():
+      commits[author] = 0
+      insertions[author] = 0
+      deletions[author] = 0
+    commits[author] += 1
+  else:
+    stats = line.strip().split()
+    if (stats[0] != '-'):
+      insertions[author] += int(stats[0])
+    if (stats[1] != '-'):
+      deletions[author] += int(stats[1])
+
+print ('AUTHOR'.ljust(40) + 'COMMITS'.rjust (16) + 'INSERTIONS'.rjust(16) + 'DELETIONS'.rjust(16))
+print (''.rjust(88,'='))
+for author in sorted(commits, key=commits.get, reverse=True):
+  print (author.ljust(40) + str(commits[author]).rjust(16) + str(insertions[author]).rjust(16) + str(deletions[author]).rjust(16))
