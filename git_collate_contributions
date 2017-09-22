@@ -45,7 +45,7 @@ def substitute (author):
   return author
 
 
-process = subprocess.Popen ('git log --no-merges --numstat --pretty=format:#%an'.split() + sys.argv[1:], stdout=subprocess.PIPE)
+process = subprocess.Popen ('git log --numstat --pretty=format:#%an'.split() + sys.argv[1:], stdout=subprocess.PIPE)
 author = None
 
 for line in process.stdout:

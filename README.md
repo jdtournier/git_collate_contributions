@@ -52,11 +52,16 @@ gfagiolo                                               1              61        
 ### Additional arguments
 
 You can pass additional arguments to the command, which will be passed as-is to
-the corresponding `git log` call. This useful to select branches or remotes,
-e.g.:
+the corresponding `git log` call. This useful to select all branches:
 ```ShellSession
 $ ~/git_collate_contributions/git_collate_contributions --all
+or all branches on a remote:
+```ShellSession
 $ ~/git_collate_contributions/git_collate_contributions --remotes=origin
+```
+or to ignore merge commits:
+```ShellSession
+$ ~/git_collate_contributions/git_collate_contributions --no-merges
 ```
 
 
@@ -73,12 +78,14 @@ Joe Bloggs: jbloggs 'Joe M. Bloggs' "JM Bloggs"
 With one line for each user. In the example above, contributions for `janedoe`
 will be attributed to `Jane Doe`, etc. 
 
+This repo comes with an existing `substitutions` file (suitable for my own
+needs). Please delete or amend to suit your repo. 
 
 
 
 ### Limitations 
 
 Probably lots. Main one is that binary contributions will not be counted
-towards insertions or deletions (since no line changes to record). Also, this
-script explicitly ignores merge commits (although this can be changed by
-modifying the `git` invocation if required).
+towards insertions or deletions (since `git log` understandably does not provide information
+about line changes). 
+
