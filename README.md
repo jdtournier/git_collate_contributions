@@ -5,9 +5,21 @@ analyse contributions to a git repo, and produce a breakdown of commits, inserti
 
 ### Usage
 
-To use it, clone this repo (e.g. to `~/git_collate_contributions`), then simply invoke from within your git repo folder:
+To use it, clone this repo, e.g.:
+
 ```
-$ ~/git_collate_contributions/git_collate_contributions 
+~ $ git clone https://github.com/jdtournier/git_collate_contributions
+Cloning into 'git_collate_contributions'...
+remote: Counting objects: 11, done.
+remote: Compressing objects: 100% (10/10), done.
+remote: Total 11 (delta 3), reused 7 (delta 1), pack-reused 0
+Unpacking objects: 100% (11/11), done.
+```
+
+Then simply invoke from within your git repo folder:
+
+```
+~/my_project $ ~/git_collate_contributions/git_collate_contributions 
 AUTHOR                                           COMMITS      INSERTIONS       DELETIONS
 ========================================================================================
 J-Donald Tournier                                   1909          377761          295731
@@ -61,3 +73,12 @@ Joe Bloggs: jbloggs 'Joe M. Bloggs' "JM Bloggs"
 With one line for each user. In the example above, contributions for `janedoe`
 will be attributed to `Jane Doe`, etc. 
 
+
+
+
+### Limitations 
+
+Probably lots. Main one is that binary contributions will not be counted
+towards insertions or deletions (since no line changes to record). Also, this
+script explicitly ignores merge commits (although this can be changed by
+modifying the `git` invocation if required).
